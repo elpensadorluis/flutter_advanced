@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:dinbog/domain/auth/auth_failure.dart';
+import 'package:dinbog/domain/auth/user.dart';
 import 'package:dinbog/domain/auth/i_auth_facade.dart';
 import 'package:dinbog/domain/auth/value_objects.dart';
-// import 'package:dinbog/domain/core/errors.dart';
+import 'package:dinbog/infrastructure/auth/firebase_user_mapper.dart';
 
 @LazySingleton(as: IAuthFacade)
 class FirebaseAuthFacade implements IAuthFacade {
@@ -17,10 +17,17 @@ class FirebaseAuthFacade implements IAuthFacade {
   );
 
   @override
+  Future<Option<User>> getSignedInUser() => _firebaseAuth
+      .currentUser()
+      .then((firebaseUser) => optionOf(firebaseUser?.toDomain()));
+
+  @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
     @required EmailAddress emailAddress,
     @required Password password,
   }) async {
+    // _firebaseAuth.currentUser().then((value) => value.uid);
+
     final emailAddressStr = emailAddress.getOrCrash();
     final passwordStr = password.getOrCrash();
     try {
@@ -31,10 +38,8 @@ class FirebaseAuthFacade implements IAuthFacade {
       return right(unit);
     } /*on PlatformException*/ catch (e) {
       if (e.code == 'email-already-in-use') {
-        print('mirame00: ${e.code}');
         return left(const AuthFailure.emailAlreadyInUse());
       } else {
-        print('mirame01: ${e.code}');
         return left(const AuthFailure.serverError());
       }
     }
@@ -67,4 +72,10 @@ class FirebaseAuthFacade implements IAuthFacade {
     // TODO: implement signInWithFacebook
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> signOut() => Future.wait([
+        // _facebookSignIn.signOut(),
+        _firebaseAuth.signOut(),
+      ]);
 }
