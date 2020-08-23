@@ -4,7 +4,7 @@ import 'package:dinbog/presentation/core/app_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-void main() async {
+void main() /*async*/ {
   // WidgetsFlutterBinding.ensureInitialized(); TODO: preparar mantenimiento
   configureINjection(Environment.prod);
   // FirebaseApp app = await Firebase.initializeApp(); TODO: preparar mantenimiento
