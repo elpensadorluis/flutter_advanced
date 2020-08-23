@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:dinbog/domain/auth/auth_failure.dart';
 import 'package:dinbog/domain/auth/i_auth_facade.dart';
 import 'package:dinbog/domain/auth/value_objects.dart';
-import 'package:dinbog/domain/core/errors.dart';
+// import 'package:dinbog/domain/core/errors.dart';
 
 @LazySingleton(as: IAuthFacade)
 class FirebaseAuthFacade implements IAuthFacade {
@@ -29,10 +29,12 @@ class FirebaseAuthFacade implements IAuthFacade {
         password: passwordStr,
       );
       return right(unit);
-    } on PlatformException catch (e) {
+    } /*on PlatformException*/ catch (e) {
       if (e.code == 'email-already-in-use') {
+        print('mirame00: ${e.code}');
         return left(const AuthFailure.emailAlreadyInUse());
       } else {
+        print('mirame01: ${e.code}');
         return left(const AuthFailure.serverError());
       }
     }
@@ -51,7 +53,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         password: passwordStr,
       );
       return right(unit);
-    } on PlatformException catch (e) {
+    } /*on PlatformException*/ catch (e) {
       if (e.code == 'wrong-password' || e.code == 'user-not-found') {
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
       } else {

@@ -14,12 +14,13 @@ class SignInForm extends StatelessWidget {
             (failure) {
               FlushbarHelper.createError(
                 message: failure.map(
-                    cancelledByUser: (_) => 'Cancelled',
-                    serverError: (_) => 'Server error',
-                    emailAlreadyInUse: (_) => 'Email already in use',
-                    invalidEmailAndPasswordCombination: (_) =>
-                        'Invalid email and password combination'),
-              );
+                  cancelledByUser: (_) => 'Cancelled',
+                  serverError: (_) => 'Server error',
+                  emailAlreadyInUse: (_) => 'Email already in use',
+                  invalidEmailAndPasswordCombination: (_) =>
+                      'Invalid email and password combination',
+                ),
+              ).show(context);
             },
             (_) {
               // TODO: Navigate
@@ -33,6 +34,7 @@ class SignInForm extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(8),
             children: [
+              const SizedBox(height: 16),
               const Text(
                 'dinbog',
                 textAlign: TextAlign.center,
