@@ -79,5 +79,5 @@ flutter_intl:
   main_locale: en
   class_name: S
 
-dependency_overrides:
-  analyzer: "0.39.14"
+# dependency_overrides:
+#   analyzer: "0.39.14"

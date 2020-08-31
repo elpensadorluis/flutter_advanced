@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 void main() /*async*/ {
   // WidgetsFlutterBinding.ensureInitialized(); TODO: preparar mantenimiento
-  configureINjection(Environment.prod);
+  configureInjection(Environment.prod);
   // FirebaseApp app = await Firebase.initializeApp(); TODO: preparar mantenimiento
   runApp(AppWidget());
 }
