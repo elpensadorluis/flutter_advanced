@@ -1,42 +1,75 @@
 #WorkFlow en Flutter
 ## Comandos de Flutter
-br: fpb fbr
+logo:
+	@echo "┌──────────────────────────────────────────────┐"
+	@echo "│ ███████╗███████╗███╗   ██╗████████╗██╗   ██╗ │"
+	@echo "│ ██╔════╝██╔════╝████╗  ██║╚══██╔══╝██║   ██║ │"
+	@echo "│ ███████╗█████╗  ██╔██╗ ██║   ██║   ██║   ██║ │"
+	@echo "│ ╚════██║██╔══╝  ██║╚██╗██║   ██║   ██║   ██║ │"
+	@echo "│ ███████║███████╗██║ ╚████║   ██║   ╚██████╔╝ │"
+	@echo "│ ╚══════╝╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  │"
+	@echo "└─────────────────────────────────────┤studio├─┘"
+	@echo ""
+br: logo fpb fbr
 	@echo "Build Runner completado"
 fpb:
 	flutter pub get
 fbr:
 	flutter pub run build_runner build --delete-conflicting-outputs
-run:
-	flutter run
-test:
+run: logo
+	flutter run --verbose
+test: logo
 	@echo "Prueba de concepto"
 
 ## Comandos del dispositivo Android adb
-dwifi:
+home_sdk="$$HOME/Android/Sdk/"
+home_adb="$(home_sdk)platform-tools/"
+dwifi: logo
 #Debe estar el dispositivo conectado por usb y el comando ejecutado fuera de docker
-	./../../../../Android/Sdk/platform-tools/adb tcpip 5555
-	./../../../../Android/Sdk/platform-tools/adb device
+	$(home_adb)./adb tcpip 5555
+	$(home_adb)./adb device
 	
-device:
-	./../../../../Android/Sdk/platform-tools/adb connect 192.168.0.11:5555
-	./../../../../Android/Sdk/platform-tools/adb devices
+device: logo
+	$(home_adb)./adb connect 192.168.0.11:5555
+	$(home_adb)./adb devices
 
-dinfo:
-	./../../../../Android/Sdk/platform-tools/adb devices
+dinfo: logo
+	$(home_adb)./adb devices
 
-drestart:
-	./../../../../Android/Sdk/platform-tools/adb kill-server
-	./../../../../Android/Sdk/platform-tools/adb start-server
-	./../../../../Android/Sdk/platform-tools/adb devices
+drestart: logo
+	$(home_adb)./adb kill-server
+	$(home_adb)./adb start-server
+	$(home_adb)./adb devices
 
-# Emulator
-erun:
-	./../../../../Android/Sdk/emulator/emulator @flutter_emulator -no-boot-anim -netdelay none -no-snapshot -wipe-data -skin 1080x1920 &
+# Emulador
+home_emulator="$(home_sdk)/emulator/"
+erun: logo
+	$(home_emulator)./emulator @SENTU -no-boot-anim -netdelay none -no-snapshot -wipe-data -skin 1080x1920 &
 
-els:
-	./../../../../Android/Sdk/emulator/emulator -list-avds
+els: logo
+	$(home_emulator)./emulator -list-avds
 
-	
+#sdkmanager
+sdkinfo: logo
+	$(home_sdk)tools/bin/./sdkmanager --list
 
-Sdkinfo:
-	./../../../../Android/Sdk/tools/bin/sdkmanager --list
+#Solucionar problemas con diferentes versiones de flutter
+solvefv: logo
+	flutter channel stable
+	flutter upgrade --force
+	flutter pub cache repair
+	flutter clean
+	flutter doctor -v
+
+info: logo mcomandos
+
+
+mcomandos:
+	@echo "    Comandos:"
+	@echo "       ├── flutter: [br, fbp, fbr, run, test]"
+	@echo "       ├── adb: [dwifi,device,dinfo,drestart]"
+	@echo "       ├── emulador: [erun,els]"
+	@echo "       └── sdkmanager: [sdkinfo]"
+	@echo "    Forzar configuracion correcta de Flutter: [solvefv]"
+	@echo ""
+	@echo ""

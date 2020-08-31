@@ -74,10 +74,10 @@ flutter:
           weight: 500
         - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
           weight: 700
-flutter_intl:
-  enabled: false
-  main_locale: en
-  class_name: S
+# flutter_intl:
+#   enabled: false
+#   main_locale: en
+#   class_name: S
 
 # dependency_overrides:
 #   analyzer: "0.39.14"

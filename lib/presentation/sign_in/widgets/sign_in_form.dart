@@ -56,18 +56,117 @@ class SignInForm extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 55.0),
+                      const SizedBox(height: 55.0),
                       _titleDinbog(context),
-                      SizedBox(height: 40.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 20.0,
+                      const SizedBox(height: 40.0),
+                      // campo email
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        decoration: kBoxDecorationStyle,
+                        height: 56.0,
+                        child: TextFormField(
+                          // controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.only(top: 14.0),
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: Colors.white,
+                            ),
+                            // hintText: AppLocalization.of(context).email,
+                            hintText: 'email',
+                            hintStyle: kHintTextStyle,
+                          ),
+                          onChanged: (value) =>
+                              context.bloc<SignInFormBloc>().add(
+                                    SignInFormEvent.emailChanged(value),
+                                  ),
+                          validator: (_) => context
+                              .bloc<SignInFormBloc>()
+                              .state
+                              .emailAddress
+                              .value
+                              .fold(
+                                (f) => f.maybeMap(
+                                  invalidEmail: (_) => 'Invalid Email',
+                                  orElse: () => null,
+                                ),
+                                (_) => null,
+                              ),
+                        ),
                       ),
-                      _buildPasswordTF(),
-                      _buildLoginBtn(),
+                      const SizedBox(height: 20.0),
+                      // campo password
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        decoration: kBoxDecorationStyle,
+                        height: 56.0,
+                        child: TextFormField(
+                          // controller: _passwordController,
+                          obscureText: true,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.only(top: 14.0),
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: Colors.white,
+                            ),
+                            // hintText: AppLocalization.of(context).password,
+                            hintText: 'Password',
+                            hintStyle: kHintTextStyle,
+                          ),
+                          onChanged: (value) => context
+                              .bloc<SignInFormBloc>()
+                              .add(SignInFormEvent.passwordChanged(value)),
+                          validator: (_) => context
+                              .bloc<SignInFormBloc>()
+                              .state
+                              .password
+                              .value
+                              .fold(
+                                (f) => f.maybeMap(
+                                  shortPassword: (_) => 'Short Password',
+                                  orElse: () => null,
+                                ),
+                                (_) => null,
+                              ),
+                        ),
+                      ),
+                      // Boton login
+                      Container(
+                        padding: const EdgeInsets.only(top: 30.0, bottom: 5.0),
+                        width: double.infinity,
+                        child: RaisedButton(
+                            elevation: 5.0,
+                            onPressed: () {
+                              context.bloc<SignInFormBloc>().add(
+                                    const SignInFormEvent
+                                        .signInWithEmailAndPasswordPressed(),
+                                  );
+                            },
+                            padding: const EdgeInsets.all(14.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            color: Colors.white,
+                            child: _textLogin()),
+                      ),
+                      if (state.isSubmitting) ...[
+                        const SizedBox(height: 8),
+                        const LinearProgressIndicator(value: null),
+                      ],
                       _buildForgotPasswordBtn(),
                       _outlineButtonSignUpFacebook(),
-                      SizedBox(height: 40.0),
+                      const SizedBox(height: 40.0),
                       InkWell(
                         onTap: () =>
                             Navigator.popAndPushNamed(context, 'landing'),
@@ -108,60 +207,6 @@ Widget _titleDinbog(context) {
   );
 }
 
-Widget _buildEmailTF() {
-  return Container(
-    alignment: Alignment.centerLeft,
-    decoration: kBoxDecorationStyle,
-    height: 56.0,
-    child: TextField(
-      // controller: _emailController,
-      keyboardType: TextInputType.emailAddress,
-      style: TextStyle(
-        color: Colors.white,
-        fontFamily: 'OpenSans',
-      ),
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.only(top: 14.0),
-        prefixIcon: Icon(
-          Icons.email,
-          color: Colors.white,
-        ),
-        // hintText: AppLocalization.of(context).email,
-        hintText: 'email',
-        hintStyle: kHintTextStyle,
-      ),
-    ),
-  );
-}
-
-Widget _buildPasswordTF() {
-  return Container(
-    alignment: Alignment.centerLeft,
-    decoration: kBoxDecorationStyle,
-    height: 56.0,
-    child: TextField(
-      // controller: _passwordController,
-      obscureText: true,
-      style: TextStyle(
-        color: Colors.white,
-        fontFamily: 'OpenSans',
-      ),
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.only(top: 14.0),
-        prefixIcon: Icon(
-          Icons.lock,
-          color: Colors.white,
-        ),
-        // hintText: AppLocalization.of(context).password,
-        hintText: 'Password',
-        hintStyle: kHintTextStyle,
-      ),
-    ),
-  );
-}
-
 Widget _buildForgotPasswordBtn() {
   return Container(
     alignment: Alignment.centerRight,
@@ -181,27 +226,11 @@ Widget _buildForgotPasswordBtn() {
   );
 }
 
-Widget _buildLoginBtn() {
-  return Container(
-    padding: EdgeInsets.only(top: 30.0, bottom: 5.0),
-    width: double.infinity,
-    child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () {},
-        padding: EdgeInsets.all(14.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        color: Colors.white,
-        child: setUpButtonChild()),
-  );
-}
-
 Widget _textLogin() {
   return Text(
     // AppLocalization.of(context).login,
     'LOGIN',
-    style: TextStyle(
+    style: const TextStyle(
       color: Color(0xFF527DAA),
       letterSpacing: 1.5,
       fontSize: 18.0,
@@ -214,17 +243,8 @@ Widget _textLogin() {
 Widget _outlineButtonSignUpFacebook() {
   return Column(
     children: <Widget>[
-      //SizedBox(height: 10,),
-      // Row(
-      //   children: <Widget>[
-      //     Expanded(child: Divider(color: Colors.grey[300], endIndent: 10.0, indent: 10.0,)),
-      //     Text(AppLocalization.of(context).or, style: TextStyle(fontSize: 18.0, color: Colors.grey[300], fontWeight: FontWeight.w300),),
-      //     Expanded(child: Divider(color: Colors.grey[300], endIndent: 10.0, indent: 10.0,)),
-      //   ],
-      // ),
-      SizedBox(
-        height: 20,
-      ),
+      //TODO: Implementar conexión con facebook pendiente por rutina del backend
+      const SizedBox(height: 20),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -232,8 +252,8 @@ Widget _outlineButtonSignUpFacebook() {
             Ionicons.logo_facebook,
             color: Colors.white,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 3.0, left: 5),
+          const Padding(
+            padding: EdgeInsets.only(top: 3.0, left: 5),
             child: Text(
               // AppLocalization.of(context).logInWithFacebook,
               'Log In With Facebook',
