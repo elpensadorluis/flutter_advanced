@@ -16,10 +16,16 @@ fpb:
 	flutter pub get
 fbr:
 	flutter pub run build_runner build --delete-conflicting-outputs
+fw:
+	flutter pub run build_runner watch --delete-conflicting-outputs
 run: logo
 	flutter run --verbose
 test: logo
 	@echo "Prueba de concepto"
+ilogo:
+	flutter packages get
+	flutter packages pub run flutter_launcher_icons:main
+
 
 ## Comandos del dispositivo Android adb
 home_sdk="$$HOME/Android/Sdk/"

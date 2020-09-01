@@ -1,8 +1,12 @@
-import 'package:dinbog/application/auth/sign_in_form/sign_in_form_bloc.dart';
+import 'package:auto_route/auto_route.dart';
+// import 'package:flushbar/flushbar.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:dinbog/application/auth/auth_bloc.dart';
+import 'package:dinbog/application/auth/sign_in_form/sign_in_form_bloc.dart';
+import 'package:dinbog/presentation/routes/router.gr.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:dinbog/generated/l10n.dart';
 
@@ -31,7 +35,10 @@ class SignInForm extends StatelessWidget {
               ).show(context);
             },
             (_) {
-              // TODO: Navigate
+              ExtendedNavigator.of(context).replace(Routes.wallOverviewPage);
+              context
+                  .bloc<AuthBloc>()
+                  .add(const AuthEvent.authCheckRequested());
             },
           ),
         );

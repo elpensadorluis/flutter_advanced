@@ -24,7 +24,7 @@ dependencies:
   injectable: ^1.0.4
   flushbar: ^1.10.4
   uuid: ^2.2.0
-  auto_route: ^0.5.0
+  auto_route: ^0.6.7
   kt_dart: ^0.7.0+1
   json_annotation: ^3.0.1
   rxdart: ^0.24.1
@@ -35,12 +35,19 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner:
+  build_runner: null
   freezed: ^0.11.6
   lint: ^1.2.0
   injectable_generator: ^1.0.4
-  auto_route_generator: ^0.5.0
+  auto_route_generator: ^0.6.8
   json_serializable: ^3.3.0
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/img/logo_alpha.png"
+  adaptive_icon_background: "assets/img/logo_alpha.png"
 
 flutter:
   uses-material-design: true
@@ -78,6 +85,6 @@ flutter:
 #   enabled: false
 #   main_locale: en
 #   class_name: S
-
 # dependency_overrides:
 #   analyzer: "0.39.14"
+
