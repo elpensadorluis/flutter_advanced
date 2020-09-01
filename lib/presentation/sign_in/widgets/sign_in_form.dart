@@ -175,8 +175,8 @@ class SignInForm extends StatelessWidget {
                       _outlineButtonSignUpFacebook(),
                       const SizedBox(height: 40.0),
                       InkWell(
-                        onTap: () =>
-                            Navigator.popAndPushNamed(context, 'landing'),
+                        onTap: () => ExtendedNavigator.of(context)
+                            .replace(Routes.signUpPage),
                         child: Container(
                             margin: EdgeInsets.only(
                               top: 8.0,

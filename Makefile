@@ -16,13 +16,13 @@ fpb:
 	flutter pub get
 fbr:
 	flutter pub run build_runner build --delete-conflicting-outputs
-fw:
+fw: logo
 	flutter pub run build_runner watch --delete-conflicting-outputs
 run: logo
 	flutter run --verbose
 test: logo
 	@echo "Prueba de concepto"
-ilogo:
+ilogo: logo
 	flutter packages get
 	flutter packages pub run flutter_launcher_icons:main
 
@@ -79,7 +79,7 @@ info: logo mcomandos
 
 mcomandos:
 	@echo "    Comandos:"
-	@echo "       ├── flutter: [br, fbp, fbr, run, test]"
+	@echo "       ├── flutter: [br,fbp,fbr,fw,run,test]"
 	@echo "       ├── adb: [dwifi,device,dinfo,drestart]"
 	@echo "       ├── emulador: [erun,els]"
 	@echo "       └── sdkmanager: [sdkinfo]"
