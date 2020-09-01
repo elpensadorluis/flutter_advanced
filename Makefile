@@ -67,6 +67,13 @@ solvefv: logo
 	flutter clean
 	flutter doctor -v
 
+#Implementando WorkFlow Git
+# git branch develop
+# git checkout develop
+# git push dinbog develop
+# git push origin develop
+# git remote add dinbog https://xxx.git
+
 info: logo mcomandos
 
 
