@@ -1,9 +1,10 @@
-// import 'package:dinbog/application/auth/auth_bloc.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:dinbog/application/auth/auth_bloc.dart';
-import 'package:dinbog/presentation/routes/router.gr.dart';
+import 'package:dinbog/presentation/core/constants.dart';
+import 'package:dinbog/presentation/wall/core/components/bottom_navigation_bar_home.dart';
+import 'package:dinbog/presentation/wall/widgets/individual_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class WallOverviewPage extends StatelessWidget {
   @override
@@ -13,23 +14,70 @@ class WallOverviewPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('The Wall'),
+            centerTitle: true,
+            title: const Text("dinbog"),
             leading: IconButton(
-              icon: const Icon(Icons.exit_to_app),
-              onPressed: () {
-                context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
-                ExtendedNavigator.of(context).replace(Routes.signInPage);
-              },
+              icon: Icon(
+                Feather.camera,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onPressed: () {},
             ),
-            actions: <Widget>[],
           ),
-          body: Text('hola mundo'),
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: () {},
-          //   child: const Icon(Icons.add),
-          // ),
+          body: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index) {
+                return _buidPostItem();
+              }),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.blueAccent,
+                ),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.search,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: IconButton(
+                  icon: Icon(
+                    Icons.add_circle_outline,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  onPressed: () {},
+                ),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.notifications_none,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.work,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                title: Container(),
+              ),
+            ],
+          ),
         );
       },
     );
+  }
+
+  Widget _buidPostItem() {
+    return IndividualPost();
   }
 }
