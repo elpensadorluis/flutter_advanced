@@ -25,6 +25,10 @@ test: logo
 ilogo: logo
 	flutter packages get
 	flutter packages pub run flutter_launcher_icons:main
+# Version de producción
+fbuild: logo
+	flutter build apk --release
+
 
 
 ## Comandos del dispositivo Android adb
@@ -33,7 +37,7 @@ home_adb="$(home_sdk)platform-tools/"
 dwifi: logo
 #Debe estar el dispositivo conectado por usb y el comando ejecutado fuera de docker
 	$(home_adb)./adb tcpip 5555
-	$(home_adb)./adb device
+	$(home_adb)./adb devices
 	
 device: logo
 	$(home_adb)./adb connect 192.168.0.11:5555
@@ -70,9 +74,9 @@ solvefv: logo
 #Implementando WorkFlow Git
 # git branch develop
 # git checkout develop
-# git push dinbog develop
+# git push sentu develop
 # git push origin develop
-# git remote add dinbog https://xxx.git
+# git remote add sentu https://xxx.git
 
 info: logo mcomandos
 

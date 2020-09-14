@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:dinbog/domain/core/value_objects.dart';
-import 'package:dinbog/domain/auth/user.dart';
+import 'package:sentu/domain/core/value_objects.dart';
+import 'package:sentu/domain/auth/user.dart';
 
 extension FirebaseUserDomainX on FirebaseUser {
   User toDomain() {

@@ -72,7 +72,7 @@ final kBoxDecorationStyle = BoxDecoration(
 
 // Constantes de Andrés
 const screen = {
-  "app_name": "dinbog",
+  "app_name": "sentu",
   "marginLat": 16.0,
   "marginTop": 8.0,
   "edgeInsetsMarginsAll":

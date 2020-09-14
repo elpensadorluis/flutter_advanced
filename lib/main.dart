@@ -1,5 +1,5 @@
-import 'package:dinbog/injection.dart';
-import 'package:dinbog/presentation/core/app_widget.dart';
+import 'package:sentu/injection.dart';
+import 'package:sentu/presentation/core/app_widget.dart';
 // import 'package:firebase_core/firebase_core.dart'; TODO: preparar mantenimiento
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';

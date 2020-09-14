@@ -1,10 +1,8 @@
-import 'package:dinbog/application/auth/auth_bloc.dart';
-import 'package:dinbog/presentation/core/constants.dart';
-import 'package:dinbog/presentation/wall/core/components/bottom_navigation_bar_home.dart';
-import 'package:dinbog/presentation/wall/widgets/individual_post.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:sentu/application/auth/auth_bloc.dart';
+import 'package:sentu/presentation/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 class WallOverviewPage extends StatelessWidget {
   @override
@@ -15,69 +13,20 @@ class WallOverviewPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text("dinbog"),
-            leading: IconButton(
-              icon: Icon(
-                Feather.camera,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              onPressed: () {},
-            ),
-          ),
-          body: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (BuildContext context, int index) {
-                return _buidPostItem();
-              }),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.blueAccent,
-                ),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: IconButton(
-                  icon: Icon(
-                    Icons.add_circle_outline,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
-                  onPressed: () {},
-                ),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.notifications_none,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.work,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                title: Container(),
+            title: const Text("SENTU"),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.exit_to_app),
+                onPressed: () {
+                  context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
+                  ExtendedNavigator.of(context).replace(Routes.signInPage);
+                },
               ),
             ],
           ),
+          body: const Text('Hello World...'),
         );
       },
     );
-  }
-
-  Widget _buidPostItem() {
-    return IndividualPost();
   }
 }

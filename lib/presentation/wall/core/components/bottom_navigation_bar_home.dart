@@ -1,5 +1,5 @@
-import 'package:dinbog/presentation/core/constants.dart';
-import 'package:dinbog/presentation/wall/core/styles/colors.dart';
+import 'package:sentu/presentation/core/constants.dart';
+import 'package:sentu/presentation/wall/core/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarHome extends StatelessWidget {

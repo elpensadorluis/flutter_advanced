@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:dinbog/domain/core/failures.dart';
-import 'package:dinbog/domain/core/value_validators.dart';
-import 'package:dinbog/domain/core/value_objects.dart';
+import 'package:sentu/domain/core/failures.dart';
+import 'package:sentu/domain/core/value_validators.dart';
+import 'package:sentu/domain/core/value_objects.dart';
 
 class EmailAddress extends ValueObject<String> {
   final Either<ValueFailure<String>, String> value;
