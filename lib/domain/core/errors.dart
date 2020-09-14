@@ -1,4 +1,4 @@
-import 'package:dinbog/domain/core/failures.dart';
+import 'package:sentu/domain/core/failures.dart';
 
 class UnexpectedValueError extends Error {
   final ValueFailure valueFailure;

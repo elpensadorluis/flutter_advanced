@@ -1,4 +1,4 @@
-# dinbog
+# sentu
 
 A new Flutter project.
 

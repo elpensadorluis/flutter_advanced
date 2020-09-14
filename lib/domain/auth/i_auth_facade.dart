@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
-import 'package:dinbog/domain/auth/auth_failure.dart';
-import 'package:dinbog/domain/auth/user.dart';
+import 'package:sentu/domain/auth/auth_failure.dart';
+import 'package:sentu/domain/auth/user.dart';
 
-import 'package:dinbog/domain/auth/value_objects.dart';
+import 'package:sentu/domain/auth/value_objects.dart';
 
 abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();

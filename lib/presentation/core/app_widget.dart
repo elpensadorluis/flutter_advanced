@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dinbog/application/auth/auth_bloc.dart';
-import 'package:dinbog/injection.dart';
-import 'package:dinbog/presentation/routes/router.gr.dart' as r;
+import 'package:sentu/application/auth/auth_bloc.dart';
+import 'package:sentu/injection.dart';
+import 'package:sentu/presentation/routes/router.gr.dart' as r;
 // import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:dinbog/generated/l10n.dart';
+// import 'package:sentu/generated/l10n.dart';
 
 class AppWidget extends StatelessWidget {
-  // This widget is the root of dinbog.
+  // This widget is the root of sentu.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -19,7 +19,7 @@ class AppWidget extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        title: 'dinbog',
+        title: 'sentu',
         debugShowCheckedModeBanner: false,
         builder: ExtendedNavigator(router: r.Router()),
         // localizationsDelegates: [

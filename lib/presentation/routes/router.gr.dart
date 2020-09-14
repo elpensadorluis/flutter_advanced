@@ -4,54 +4,67 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:dinbog/presentation/splash/splash_page.dart';
-import 'package:dinbog/presentation/sign_in/sign_in_page.dart';
+// ignore_for_file: public_member_api_docs
 
-abstract class Routes {
-  static const splashPage = '/';
-  static const singnInPage = '/singn-in-page';
-  static const all = {
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+
+import '../sign_in/sign_in_page.dart';
+import '../splash/splash_page.dart';
+import '../wall/wall_overview_page.dart';
+
+class Routes {
+  static const String splashPage = '/';
+  static const String signInPage = '/sign-in-page';
+  static const String wallOverviewPage = '/wall-overview-page';
+  static const all = <String>{
     splashPage,
-    singnInPage,
+    signInPage,
+    wallOverviewPage,
   };
 }
 
 class Router extends RouterBase {
   @override
-  Set<String> get allRoutes => Routes.all;
-
-  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
-  static ExtendedNavigatorState get navigator =>
-      ExtendedNavigator.ofRouter<Router>();
-
+  List<RouteDef> get routes => _routes;
+  final _routes = <RouteDef>[
+    RouteDef(Routes.splashPage, page: SplashPage),
+    RouteDef(Routes.signInPage, page: SignInPage),
+    RouteDef(Routes.wallOverviewPage, page: WallOverviewPage),
+  ];
   @override
-  Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case Routes.splashPage:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => SplashPage(),
-          settings: settings,
-        );
-      case Routes.singnInPage:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => SignInPage(),
-          settings: settings,
-        );
-      default:
-        return unknownRoutePage(settings.name);
-    }
-  }
+  Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
+  final _pagesMap = <Type, AutoRouteFactory>{
+    SplashPage: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => SplashPage(),
+        settings: data,
+      );
+    },
+    SignInPage: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => SignInPage(),
+        settings: data,
+      );
+    },
+    WallOverviewPage: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => WallOverviewPage(),
+        settings: data,
+      );
+    },
+  };
 }
 
-// *************************************************************************
-// Navigation helper methods extension
-// **************************************************************************
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
 
-extension RouterNavigationHelperMethods on ExtendedNavigatorState {
-  Future pushSplashPage() => pushNamed(Routes.splashPage);
+extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
+  Future<dynamic> pushSplashPage() => push<dynamic>(Routes.splashPage);
 
-  Future pushSingnInPage() => pushNamed(Routes.singnInPage);
+  Future<dynamic> pushSignInPage() => push<dynamic>(Routes.signInPage);
+
+  Future<dynamic> pushWallOverviewPage() =>
+      push<dynamic>(Routes.wallOverviewPage);
 }
